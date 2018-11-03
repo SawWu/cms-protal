@@ -22,8 +22,11 @@
   "homepage": "https://github.com/SawWu/cms-protal#readme",
   "dependencies": {
     "koa": "^2.6.1",
+    "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
+    "koa-session": "^5.10.0",
     "koa-static": "^5.0.0",
-    "koa-views": "^6.1.4"
+    "koa-views": "^6.1.4",
+    "pug": "^2.0.3"
   }
 }
