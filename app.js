@@ -1,9 +1,29 @@
 const Koa = require('koa');
 const router = require('koa-router')();
+const serve = require('koa-static');
+const bodyParser = require('koa-bodyparser');
+const session = require('koa-session');
 const app = new Koa();
 
-const ip = '127.0.0.1'
+app.use(bodyParser());
+app.use(serve(__dirname + '/public'));
+
+const ip = '127.0.0.1';
 const host = '3000';
+
+app.keys = ['some secret hurr'];
+
+const CONFIG = {
+  key: 'koa:sess',
+  maxAge: 86400000,
+  overwrite: true,
+  httpOnly: true,
+  signed: true,
+  rolling: false,
+  renew: false,
+};
+
+app.use(session(CONFIG, app));
 
 // const admin=require('./routes/admin.js');
 // const api=require('./routes/api.js');
