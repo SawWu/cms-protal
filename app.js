@@ -28,12 +28,12 @@ app.use(session(CONFIG, app));
 
 app.use(views(__dirname, { extension: 'pug' }))
 
-// const admin=require('./routes/admin.js');
+const admin=require('./routes/admin.js');
 // const api=require('./routes/api.js');
 const index=require('./routes/index.js');
 
 router.use(index);
-// router.use('/admin',admin);
+router.use('/admin',admin);
 // router.use('/api',api);
 
 app.use(router.routes()).use(router.allowedMethods());
