@@ -20,42 +20,41 @@ router.post('/doLogin', async (ctx) => {
 
   let code = ctx.request.body.code;
 
-  let result = await DB.find('admin', {"username": username, "password": tools.md5(password)});
-
-  console.log(result);
-
-  if (result.length > 0) {
-
-    ctx.session.userinfo = result[0];
-
-    ctx.redirect('/admin');
+  if (code.toLocaleLowerCase() === ctx.session.code.toLocaleLowerCase()) {
+    let result = await DB.find('admin', {"username": username, "password": tools.md5(password)});
+    console.log(result);
+    if (result.length > 0) {
+      ctx.session.userinfo = result[0];
+      ctx.redirect('/admin');
+    } else {
+      await ctx.render('views/error', {
+        message: '用户名或者密码错误',
+        redirect: '/admin/login'
+      })
+    }
   } else {
-    ctx.render('admin/error', {
-      message: '用户名或者密码错误',
+    await ctx.render('views/error', {
+      message: '验证码失败',
       redirect: '/admin/login'
     })
-
   }
-  ctx.redirect('/');
-
 })
 
-router.get('/code',async (ctx)=>{
+router.get('/code', async (ctx) => {
   let captcha = svgCaptcha.create({
-    size:4,
+    size: 4,
     fontSize: 50,
     width: 120,
-    height:34,
-    background:"#cc9966"
+    height: 34,
+    background: "#cc9966"
   });
 
   //保存生成的验证码
-  ctx.session.code=captcha.text;
+  ctx.session.code = captcha.text;
   //设置响应头
   ctx.response.type = 'image/svg+xml';
-  ctx.body=captcha.data;
+  ctx.body = captcha.data;
 })
-
 
 
 module.exports = router.routes();

@@ -1,0 +1,41 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        title 错误提示页面
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet" href="/css/bootstrap.min.css")
+        link(rel="stylesheet" href="/css/font-awesome.min.css")
+        link(rel="stylesheet" href="/css/ace.min.css")
+        link(rel="stylesheet" href="/css/ace-rtl.min.css")
+        script(src='/js/ace-extra.min.js')
+    body
+        div.navbar.navbar-default#navbar
+            div.navbar-container#navbar-container
+                div.navbar-header.pull-left
+                    a(href="javascript:;" class="navbar-brand")
+                        small CMS后台管理系统
+                            i.icon-leaf
+        div.error-container
+            div.well
+                h1.grey.lighter.smaller
+                    i.icon-wrench.icon-animated-wrench.bigger-125 #{message}
+                hr
+                //h3.lighter.smaller 网页三秒后将自动跳转...
+                div.space
+                div.center
+                    a.btn.btn-grey(href= redirect)
+                        i.icon-arrow-left 返回
+
+
+
+
+
+
+
+
+
+
+
+
+
