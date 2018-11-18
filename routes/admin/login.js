@@ -1,5 +1,11 @@
 const router = require('koa-router')();
 
+const svgCaptcha = require('svg-captcha');
+
+const tools = require('../../tool/tools.js');
+
+const DB = require('../../model/db.js');
+
 router.get('/', async (ctx) => {
   await ctx.render('views/admin/login');
 });
@@ -14,8 +20,42 @@ router.post('/doLogin', async (ctx) => {
 
   let code = ctx.request.body.code;
 
+  let result = await DB.find('admin', {"username": username, "password": tools.md5(password)});
+
+  console.log(result);
+
+  if (result.length > 0) {
+
+    ctx.session.userinfo = result[0];
+
+    ctx.redirect('/admin');
+  } else {
+    ctx.render('admin/error', {
+      message: '用户名或者密码错误',
+      redirect: '/admin/login'
+    })
+
+  }
   ctx.redirect('/');
 
 })
+
+router.get('/code',async (ctx)=>{
+  let captcha = svgCaptcha.create({
+    size:4,
+    fontSize: 50,
+    width: 120,
+    height:34,
+    background:"#cc9966"
+  });
+
+  //保存生成的验证码
+  ctx.session.code=captcha.text;
+  //设置响应头
+  ctx.response.type = 'image/svg+xml';
+  ctx.body=captcha.data;
+})
+
+
 
 module.exports = router.routes();
