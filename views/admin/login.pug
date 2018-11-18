@@ -4,6 +4,46 @@ html(lang="en")
         meta(charset="utf-8")
         title 后台管理系统登录
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet" href="/css/bootstrap.min.css")
+        link(rel="stylesheet" href="/css/font-awesome.min.css")
+        link(rel="stylesheet" href="/css/ace.min.css")
+        link(rel="stylesheet" href="/css/ace-rtl.min.css")
+        style(type="text/css").
+            .login-layout {
+                background: #428bca;
+            }
+
+            .login-layout .widget-box {
+                background-color: #428bca;
+            }
+
+            .login-layout .widget-box .widget-main {
+                padding: 26px 16px;
+            }
+
+            .login-container {
+                padding-top: 80px;
+            }
+
+            .header {
+                margin-top: 0px;
+                padding-bottom: 12px;
+            }
+
+            #code {
+                cursor: pointer;
+                position: relative;
+                left: 10px;
+            }
+
+            .input-icon > [class*="icon-"] {
+                top: 4px;
+            }
+
+            .input-icon.input-icon-right > [class*="icon-"] {
+                right: 5px;
+            }
+
     body.login-layout
         div.main-container
             div.main-content
@@ -16,6 +56,29 @@ html(lang="en")
                                         div.widget-main
                                             h2.header.blue.lighter.bigger.center CMS内容管理系统
                                             div.space-6
+                                            form(action="/admin/login/doLogin" method="post" id="loginForm")
+                                                fieldset
+                                                    label.block.clearfix
+                                                        span.block.input-icon.input-icon-right
+                                                            input(id="username" type="text" name="username" class="form-control" placeholder="用户名")
+                                                            i.icon-user
+                                                    label.block.clearfix
+                                                        span.block.input-icon.input-icon-right
+                                                            input(id="password" type="password"  name="password" class="form-control" placeholder="密码")
+                                                            i.icon-lock
+                                                    label.block.clearfix
+                                                        span.block.input-icon.input-icon-right
+                                                            input(type="text" class="form-control" placeholder="验证吗" name="code" style="width:200px;float:left;")
+                                                            img(id="code" src="/admin/login/code" alt="")
+                                                    div.space
+                                                    div.clearfix
+                                                        label.inline
+                                                            input(type="checkbox" class="ace")
+                                                            span.lbl Remember Me
+                                                        button(type="submit" class="width-35 pull-right btn btn-sm btn-primary")
+                                                            i.icon-key 登录
+
+
 
 
 
